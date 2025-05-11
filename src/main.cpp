@@ -129,15 +129,14 @@ void loop() {
 	Serial.printf("Horizontal: %d, Vertical: %d, Button: %d\n", horiz_value, vert_value, button_value);
 #endif
 
+	// Mode change handling
 	// On button press (up, so it hopefully doesn't happen by accident)
 	if (button_value != last_button_state && button_value == HIGH) {
-		Serial.println("Button pressed");
 		if (waiting_for_second_press) {
 			unsigned long now = millis();
 
 			if ((now - last_press_time) <= DOUBLE_PRESS_WINDOW) {
 				cur_mode = next_mode(cur_mode);
-				Serial.printf("Changed mode to %d\n", cur_mode);
 			}
 		} else {
 			last_press_time = millis();
